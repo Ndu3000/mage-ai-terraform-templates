@@ -104,21 +104,21 @@ resource "google_cloud_run_service" "run_service" {
           value = "postgresql://${var.database_user}:${var.database_password}@/${var.app_name}-db?host=/cloudsql/${google_sql_database_instance.instance.connection_name}"
         }
         env {
-          name  = "ULIMIT_NO_FILE"
-          value = 16384
+          name  = "path_to_keyfile"
+          value = "/secrets/bigquery/bigquery_credentials"
         }
         # volume_mounts {
         #   mount_path = "/secrets/bigquery"
-        #   name       = "secret-bigquery-key"
+        #   name       = "secrets-bigquery_credentials"
         # }
       }
       # volumes {
-      #   name = "secret-bigquery-key"
+      #   name = "secrets-bigquery_credentials"
       #   secret {
-      #     secret_name  = "bigquery_key"
+      #     secret_name  = "bigquery_credentials"
       #     items {
       #       key  = "latest"
-      #       path = "bigquery_key"
+      #       path = "bigquery_credentials"
       #     }
       #   }
       # }
